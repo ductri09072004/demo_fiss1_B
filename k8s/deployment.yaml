@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-fiss-api
+  namespace: demo-fiss
+  labels:
+    app: demo-fiss-api
+    version: v1.0.0
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: demo-fiss-api
+  template:
+    metadata:
+      labels:
+        app: demo-fiss-api
+        version: v1.0.0
+    spec:
+      imagePullSecrets:
+      - name: ghcr-secret
+      containers:
+      - name: demo-fiss-api
+        image: ghcr.io/YOUR_USERNAME/demo-fiss-api:latest
+        ports:
+        - containerPort: 5001
+          name: http
+        env:
+        - name: FLASK_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: demo-fiss-config
+              key: FLASK_ENV
+        - name: PYTHONUNBUFFERED
+          valueFrom:
+            configMapKeyRef:
+              name: demo-fiss-config
+              key: PYTHONUNBUFFERED
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 5001
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 5001
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3

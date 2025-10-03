@@ -1,0 +1,16 @@
+apiVersion: v2
+name: demo-fiss-api
+description: A Helm chart for Demo FISS API
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+keywords:
+  - api
+  - flask
+  - python
+home: https://github.com/YOUR_USERNAME/demo-fiss-api
+sources:
+  - https://github.com/YOUR_USERNAME/demo-fiss-api
+maintainers:
+  - name: Demo Team
+    email: demo@example.com
