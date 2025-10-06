@@ -21,7 +21,7 @@ spec:
       - name: ghcr-secret
       containers:
       - name: demo-fiss-api
-        image: ghcr.io/YOUR_USERNAME/demo-fiss-api:latest
+        image: ghcr.io/ductri09072004/demo-fiss-api:c090ef3e6e1a1fec2b1c2e4e9c7031f98d0a17dd
         ports:
         - containerPort: 5001
           name: http
