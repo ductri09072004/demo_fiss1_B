@@ -17,8 +17,6 @@ spec:
         app: demo-fiss-api
         version: v1.0.0
     spec:
-      imagePullSecrets:
-      - name: ghcr-secret
       containers:
       - name: demo-fiss-api
         image: ghcr.io/ductri09072004/demo_fiss1:main-c090ef3
