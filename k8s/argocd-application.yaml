@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/YOUR_USERNAME/demo-fiss-api-manifests
+    repoURL: https://github.com/ductri09072004/demo_fiss1_B
     targetRevision: HEAD
     path: k8s
   destination:

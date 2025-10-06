@@ -2,7 +2,7 @@
 replicaCount: 3
 
 image:
-  repository: ghcr.io/YOUR_USERNAME/demo-fiss-api
+  repository: ghcr.io/ductri09072004/demo-fiss-api
   pullPolicy: IfNotPresent
   tag: "latest"
 
