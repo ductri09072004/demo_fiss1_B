@@ -1,0 +1,132 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Demo FISS API Dashboard",
+    "tags": ["demo-fiss", "flask", "api"],
+    "style": "dark",
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "API Requests",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "demo_fiss_requests_total",
+            "legendFormat": "Demo FISS Requests",
+            "refId": "A"
+          },
+          {
+            "expr": "demo_fiss_active_connections",
+            "legendFormat": "Active Connections",
+            "refId": "B"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+        "fieldConfig": {
+          "defaults": {
+            "color": {"mode": "palette-classic"},
+            "custom": {"hideFrom": {"legend": false, "tooltip": false, "vis": false}}
+          }
+        }
+      },
+      {
+        "id": 2,
+        "title": "Response Time",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "demo_fiss_response_time_seconds",
+            "legendFormat": "Response Time (s)",
+            "refId": "A"
+          },
+          {
+            "expr": "demo_fiss_memory_usage_bytes",
+            "legendFormat": "Memory Usage (bytes)",
+            "refId": "B"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+        "fieldConfig": {
+          "defaults": {
+            "color": {"mode": "palette-classic"},
+            "custom": {"hideFrom": {"legend": false, "tooltip": false, "vis": false}}
+          }
+        }
+      },
+      {
+        "id": 3,
+        "title": "System Info",
+        "type": "table",
+        "targets": [
+          {
+            "expr": "up",
+            "legendFormat": "Service Status",
+            "refId": "A"
+          },
+          {
+            "expr": "prometheus_config_last_reload_successful",
+            "legendFormat": "Config Reload",
+            "refId": "B"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 24, "x": 0, "y": 8}
+      },
+      {
+        "id": 4,
+        "title": "Flask API Metrics",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "up",
+            "legendFormat": "Services Status",
+            "refId": "A"
+          },
+          {
+            "expr": "prometheus_tsdb_head_series",
+            "legendFormat": "Time Series",
+            "refId": "B"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16},
+        "fieldConfig": {
+          "defaults": {
+            "color": {"mode": "palette-classic"},
+            "custom": {"hideFrom": {"legend": false, "tooltip": false, "vis": false}}
+          }
+        }
+      },
+      {
+        "id": 5,
+        "title": "System Resources",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "prometheus_tsdb_head_chunks",
+            "legendFormat": "Total Chunks",
+            "refId": "A"
+          },
+          {
+            "expr": "prometheus_tsdb_head_samples",
+            "legendFormat": "Total Samples",
+            "refId": "B"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 16},
+        "fieldConfig": {
+          "defaults": {
+            "color": {"mode": "palette-classic"},
+            "custom": {"hideFrom": {"legend": false, "tooltip": false, "vis": false}}
+          }
+        }
+      }
+    ],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "refresh": "5s",
+    "schemaVersion": 27,
+    "version": 0
+  }
+}
