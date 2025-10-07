@@ -7,17 +7,17 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    external-dns.alpha.kubernetes.io/hostname: demo-fiss-api.yourdomain.com
+    external-dns.alpha.kubernetes.io/hostname: jollicow.store
 spec:
   tls:
   - hosts:
-    - demo-fiss-api.yourdomain.com
+    - jollicow.store
     secretName: demo-fiss-tls
   rules:
-  - host: demo-fiss-api.yourdomain.com
+  - host: jollicow.store
     http:
       paths:
-      - path: /
+      - path: /api
         pathType: Prefix
         backend:
           service:

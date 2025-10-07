@@ -9,11 +9,11 @@
       {
         "id": 1,
         "title": "API Requests",
-        "type": "stat",
+        "type": "barchart",
         "targets": [
           {
-            "expr": "demo_fiss_requests_total",
-            "legendFormat": "Demo FISS Requests",
+            "expr": "demo_fiss_memory_usage_bytes{instance=\"host.docker.internal:5002\"} / 1024 / 1024",
+            "legendFormat": "Memory Usage (MB)",
             "refId": "A"
           },
           {
@@ -41,8 +41,8 @@
             "refId": "A"
           },
           {
-            "expr": "demo_fiss_memory_usage_bytes",
-            "legendFormat": "Memory Usage (bytes)",
+            "expr": "demo_fiss_memory_usage_bytes{instance=\"host.docker.internal:5002\"} / 1024 / 1024",
+            "legendFormat": "Memory Usage (MB)",
             "refId": "B"
           }
         ],
@@ -57,16 +57,16 @@
       {
         "id": 3,
         "title": "System Info",
-        "type": "table",
+        "type": "barchart",
         "targets": [
           {
-            "expr": "up",
-            "legendFormat": "Service Status",
+            "expr": "up{instance=\"host.docker.internal:5002\"}",
+            "legendFormat": "Demo FISS Status",
             "refId": "A"
           },
           {
-            "expr": "prometheus_config_last_reload_successful",
-            "legendFormat": "Config Reload",
+            "expr": "demo_fiss_requests_total{instance=\"host.docker.internal:5002\"}",
+            "legendFormat": "Total Requests",
             "refId": "B"
           }
         ],
@@ -78,13 +78,13 @@
         "type": "graph",
         "targets": [
           {
-            "expr": "up",
-            "legendFormat": "Services Status",
+            "expr": "demo_fiss_active_connections{instance=\"host.docker.internal:5002\"}",
+            "legendFormat": "Active Connections",
             "refId": "A"
           },
           {
-            "expr": "prometheus_tsdb_head_series",
-            "legendFormat": "Time Series",
+            "expr": "demo_fiss_memory_usage_bytes{instance=\"host.docker.internal:5002\"} / 1024 / 1024",
+            "legendFormat": "Memory Usage (MB)",
             "refId": "B"
           }
         ],
@@ -102,13 +102,13 @@
         "type": "graph",
         "targets": [
           {
-            "expr": "prometheus_tsdb_head_chunks",
-            "legendFormat": "Total Chunks",
+            "expr": "demo_fiss_response_time_seconds{instance=\"host.docker.internal:5002\"}",
+            "legendFormat": "Response Time (s)",
             "refId": "A"
           },
           {
-            "expr": "prometheus_tsdb_head_samples",
-            "legendFormat": "Total Samples",
+            "expr": "demo_fiss_requests_total{instance=\"host.docker.internal:5002\"}",
+            "legendFormat": "Total Requests",
             "refId": "B"
           }
         ],
