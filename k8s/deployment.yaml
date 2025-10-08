@@ -23,7 +23,7 @@ spec:
         version: v1.0.0
       annotations:
         argocd.argoproj.io/sync-wave: "0"
-        timestamp: "1759893917"
+        timestamp: "1759894160"
     spec:
       containers:
       - name: demo-fiss-api
