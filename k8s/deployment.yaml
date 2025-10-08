@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-fiss-api
-  namespace: demo-fiss
+  name: {SERVICE_NAME}
+  namespace: {NAMESPACE}
   labels:
-    app: demo-fiss-api
+    app: {SERVICE_NAME}
     version: v1.0.0
 spec:
   replicas: 3
@@ -15,33 +15,33 @@ spec:
       maxSurge: 1
   selector:
     matchLabels:
-      app: demo-fiss-api
+      app: {SERVICE_NAME}
   template:
     metadata:
       labels:
-        app: demo-fiss-api
+        app: {SERVICE_NAME}
         version: v1.0.0
       annotations:
         argocd.argoproj.io/sync-wave: "0"
-        timestamp: "1759894760"
+        timestamp: "{TIMESTAMP}"
     spec:
       containers:
-      - name: demo-fiss-api
-        image: ghcr.io/ductri09072004/demo_fiss1:latest
+      - name: {SERVICE_NAME}
+        image: ghcr.io/{GH_OWNER}/{REPO_A}:{IMAGE_TAG}
         imagePullPolicy: Always
         ports:
-        - containerPort: 5001
+        - containerPort: {CONTAINER_PORT}
           name: http
         env:
         - name: FLASK_ENV
           valueFrom:
             configMapKeyRef:
-              name: demo-fiss-config
+              name: {SERVICE_NAME}-config
               key: FLASK_ENV
         - name: PYTHONUNBUFFERED
           valueFrom:
             configMapKeyRef:
-              name: demo-fiss-config
+              name: {SERVICE_NAME}-config
               key: PYTHONUNBUFFERED
         resources:
           requests:
@@ -52,16 +52,16 @@ spec:
             cpu: "200m"
         livenessProbe:
           httpGet:
-            path: /api/health
-            port: 5001
+            path: {HEALTH_PATH}
+            port: {CONTAINER_PORT}
           initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 5
           failureThreshold: 3
         readinessProbe:
           httpGet:
-            path: /api/health
-            port: 5001
+            path: {HEALTH_PATH}
+            port: {CONTAINER_PORT}
           initialDelaySeconds: 5
           periodSeconds: 5
           timeoutSeconds: 3
