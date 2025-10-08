@@ -1,15 +1,15 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {SERVICE_NAME}-hpa
-  namespace: {NAMESPACE}
+  name: demo-fiss-hpa
+  namespace: demo-fiss
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {SERVICE_NAME}
-  minReplicas: {MIN_REPLICAS}
-  maxReplicas: {MAX_REPLICAS}
+    name: demo-fiss-api
+  minReplicas: 2
+  maxReplicas: 10
   metrics:
   - type: Resource
     resource:
