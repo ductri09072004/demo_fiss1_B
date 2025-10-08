@@ -16,6 +16,8 @@ spec:
       labels:
         app: demo-fiss-api
         version: v1.0.0
+      annotations:
+        argocd.argoproj.io/sync-wave: "0"
     spec:
       containers:
       - name: demo-fiss-api
