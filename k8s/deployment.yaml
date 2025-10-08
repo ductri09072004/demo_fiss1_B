@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: demo-fiss-api
-        image: ghcr.io/ductri09072004/demo_fiss1:4faaa77b9557d16b8637caeec2f70068df402655
+        image: ghcr.io/ductri09072004/demo_fiss1:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 5001
