@@ -8,6 +8,11 @@ metadata:
     version: v1.0.0
 spec:
   replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
   selector:
     matchLabels:
       app: demo-fiss-api
@@ -18,6 +23,7 @@ spec:
         version: v1.0.0
       annotations:
         argocd.argoproj.io/sync-wave: "0"
+        timestamp: "{{ .Values.timestamp }}"
     spec:
       containers:
       - name: demo-fiss-api
