@@ -18,6 +18,7 @@ spec:
         version: v1.0.0
       annotations:
         argocd.argoproj.io/sync-wave: "0"
+        timestamp: "1759892665"
         timestamp: "1759892076"
         timestamp: "1759891838"
     spec:
