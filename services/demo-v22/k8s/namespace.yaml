@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: demo-v22
+  labels:
+    name: demo-v22
+    app: demo-v22
