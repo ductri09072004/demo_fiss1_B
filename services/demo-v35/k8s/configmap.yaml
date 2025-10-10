@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demo-v35-config
+  namespace: demo-v35
+data:
+  FLASK_ENV: "production"
+  PYTHONUNBUFFERED: "1"
+  LOG_LEVEL: "INFO"
