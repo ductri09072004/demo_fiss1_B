@@ -1,0 +1,88 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": "demo-v34",
+    "title": "demo-v34 API Dashboard",
+    "tags": [
+      "demo-v34",
+      "flask",
+      "api",
+      "microservice"
+    ],
+    "style": "dark",
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "API Requests & Memory",
+        "type": "barchart",
+        "targets": [
+          {
+            "expr": "demo-v34_memory_usage_bytes{instance=~\\\".*:5001\\\"} / 1024 / 1024",
+            "legendFormat": "Memory Usage (MB)",
+            "refId": "A"
+          },
+          {
+            "expr": "demo-v34_active_connections{instance=~\\\".*:5001\\\"}",
+            "legendFormat": "Active Connections",
+            "refId": "B"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "id": 2,
+        "title": "Response Time & Performance",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "demo-v34_response_time_seconds{instance=~\\\".*:5001\\\"}",
+            "legendFormat": "Response Time (s)",
+            "refId": "A"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 0
+        }
+      },
+      {
+        "id": 3,
+        "title": "Service Status & Requests",
+        "type": "barchart",
+        "targets": [
+          {
+            "expr": "up{instance=~\\\".*:5001\\\"}",
+            "legendFormat": "demo-v34 Status",
+            "refId": "A"
+          },
+          {
+            "expr": "demo-v34_requests_total{instance=~\\\".*:5001\\\"}",
+            "legendFormat": "Total Requests",
+            "refId": "B"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 24,
+          "x": 0,
+          "y": 8
+        }
+      }
+    ],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "refresh": "5s",
+    "schemaVersion": 27,
+    "version": 0
+  }
+}
