@@ -1,8 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: demo-fiss-ingress
-  namespace: demo-fiss
+  name: {SERVICE_NAME}-ingress
+  namespace: {NAMESPACE}
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -12,7 +12,7 @@ spec:
   tls:
   - hosts:
     - jollicow.store
-    secretName: demo-fiss-tls
+    secretName: {SERVICE_NAME}-tls
   rules:
   - host: jollicow.store
     http:
@@ -21,6 +21,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: demo-fiss-service
+            name: {SERVICE_NAME}-service
             port:
               number: 80
