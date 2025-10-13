@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: demo-fiss
+  name: demo-v49
   labels:
-    name: demo-fiss
-    app: demo-fiss-api
+    name: demo-v49
+    app: demo-v49

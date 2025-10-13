@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: demo-fiss-config
-  namespace: demo-fiss
+  name: demo-v49-config
+  namespace: demo-v49
 data:
   FLASK_ENV: "production"
   PYTHONUNBUFFERED: "1"

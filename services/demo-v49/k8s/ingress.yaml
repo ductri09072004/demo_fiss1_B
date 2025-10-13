@@ -1,8 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: demo-fiss-ingress
-  namespace: demo-fiss
+  name: demo-v49-ingress
+  namespace: demo-v49
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -21,6 +21,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: demo-fiss-service
+            name: demo-v49-service
             port:
               number: 80
