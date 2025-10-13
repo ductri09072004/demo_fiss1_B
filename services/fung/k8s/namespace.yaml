@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: fung
-  labels:
-    name: fung
-    app: fung
