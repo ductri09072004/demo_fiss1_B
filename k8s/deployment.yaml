@@ -23,11 +23,11 @@ spec:
         version: v1.0.0
       annotations:
         argocd.argoproj.io/sync-wave: "0"
-        timestamp: "1760087160"
+        timestamp: "1760321906"
     spec:
       containers:
       - name: demo-fiss-api
-        image: ghcr.io/ductri09072004/demo-v42:latest
+        image: ghcr.io/ductri09072004/demo-v43:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 5001
