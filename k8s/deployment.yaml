@@ -37,12 +37,12 @@ spec:
         - name: FLASK_ENV
           valueFrom:
             configMapKeyRef:
-              name: demo-fiss-config
+              name: {NAMESPACE}-config
               key: FLASK_ENV
         - name: PYTHONUNBUFFERED
           valueFrom:
             configMapKeyRef:
-              name: demo-fiss-config
+              name: {NAMESPACE}-config
               key: PYTHONUNBUFFERED
         resources:
           requests:
