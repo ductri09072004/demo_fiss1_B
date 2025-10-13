@@ -25,3 +25,10 @@ spec:
             name: demo-v43-service
             port:
               number: 80
+      - path: /api/demo-v44(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: demo-v44-service
+            port:
+              number: 80
