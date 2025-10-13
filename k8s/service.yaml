@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: demo-fiss-service
-  namespace: demo-fiss
+  name: {SERVICE_NAME}-service
+  namespace: {NAMESPACE}
   labels:
-    app: demo-fiss-api
+    app: {SERVICE_NAME}
 spec:
   type: ClusterIP
   ports:
-  - port: 80
-    targetPort: 5001
+  - port: {SERVICE_PORT}
+    targetPort: {CONTAINER_PORT}
     protocol: TCP
     name: http
   selector:
-    app: demo-fiss-api
+    app: {SERVICE_NAME}
