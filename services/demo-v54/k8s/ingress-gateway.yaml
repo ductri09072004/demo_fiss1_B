@@ -4,17 +4,18 @@ metadata:
   name: demo-v54-gateway
   namespace: demo-v54
   annotations:
-    # simple prefix rewrite: /api/demo-v54/api -> /api (backend)
+    # regex: /api/demo-v54/api/<rest> -> /api/<rest>
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/rewrite-target: "/api"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: "/api/$2"
 spec:
   ingressClassName: nginx
   rules:
   - host: gateway.local
     http:
       paths:
-      - path: /api/demo-v54/api
-        pathType: Prefix
+      - path: /api/demo-v54/api(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
           service:
             name: demo-v54-service
@@ -23,8 +24,8 @@ spec:
   - host: localhost
     http:
       paths:
-      - path: /api/demo-v54/api
-        pathType: Prefix
+      - path: /api/demo-v54/api(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
           service:
             name: demo-v54-service
