@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demo-v54-gateway
+  namespace: demo-v54
+  annotations:
+    # strip "/api/demo-v54" prefix so app sees "/api/..."
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: "/$2"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: gateway.local
+    http:
+      paths:
+      - path: /api/demo-v54(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: demo-v54-service
+            port:
+              number: 80
+

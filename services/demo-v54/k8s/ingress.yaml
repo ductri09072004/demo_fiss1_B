@@ -24,3 +24,13 @@ spec:
             name: demo-v54-service
             port:
               number: 80
+  - host: gateway.local
+    http:
+      paths:
+      - path: /api/demo-v54
+        pathType: Prefix
+        backend:
+          service:
+            name: demo-v54-service
+            port:
+              number: 80
