@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: demo-v55
+  labels:
+    name: demo-v55
+    app: demo-v55-api
