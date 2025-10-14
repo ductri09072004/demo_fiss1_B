@@ -7,7 +7,7 @@ metadata:
     app: demo-v71
     version: v1.0.0
 spec:
-  replicas: 3
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -50,12 +50,12 @@ spec:
               name: demo-v71-config
               key: PORT
         resources:
-          requests:
-            memory: "128Mi"
-            cpu: "100m"
-          limits:
-            memory: "256Mi"
-            cpu: "200m"
+            requests:
+              memory: "128Mi"
+              cpu: "50m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
         livenessProbe:
           httpGet:
             path: /api/health
