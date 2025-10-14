@@ -31,7 +31,7 @@ spec:
         image: ghcr.io/ductri09072004/demo-v55:main-df6fda941b5c6619fa8b07ddd2efba6abac12bc9
         imagePullPolicy: Always
         ports:
-        - containerPort: 5000
+        - containerPort: 5001
           name: http
         env:
         - name: FLASK_ENV
@@ -54,7 +54,7 @@ spec:
         livenessProbe:
           httpGet:
             path: /api/health
-            port: 5000
+            port: 5001
           initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 5
@@ -62,7 +62,7 @@ spec:
         readinessProbe:
           httpGet:
             path: /api/health
-            port: 5000
+            port: 5001
           initialDelaySeconds: 5
           periodSeconds: 5
           timeoutSeconds: 3
