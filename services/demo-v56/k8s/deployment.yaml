@@ -7,7 +7,7 @@ metadata:
     app: demo-v56
     version: v1.0.0
 spec:
-  replicas: {REPLICAS}
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -31,7 +31,7 @@ spec:
         image: ghcr.io/ductri09072004/demo-v56:main-ee4bb72040e61247982a93beb1cd8371d340a2dd
         imagePullPolicy: Always
         ports:
-        - containerPort: {PORT}
+        - containerPort: 7002
           name: http
         env:
         - name: FLASK_ENV
@@ -45,16 +45,16 @@ spec:
               name: demo-v56-config
               key: PYTHONUNBUFFERED
         resources:
-          requests:
-            memory: "{MEMORY_REQUEST}"
-            cpu: "{CPU_REQUEST}"
-          limits:
-            memory: "{MEMORY_LIMIT}"
-            cpu: "{CPU_LIMIT}"
+         requests:
+            memory: "128Mi"
+            cpu: "100m"
+            limits:
+            memory: "256Mi"
+            cpu: "200m"
         livenessProbe:
           httpGet:
             path: /api/health
-            port: {PORT}
+            port: 7002
           initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 5
@@ -62,7 +62,7 @@ spec:
         readinessProbe:
           httpGet:
             path: /api/health
-            port: {PORT}
+            port: 7002
           initialDelaySeconds: 5
           periodSeconds: 5
           timeoutSeconds: 3
