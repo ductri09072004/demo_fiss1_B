@@ -44,6 +44,11 @@ spec:
             configMapKeyRef:
               name: {NAMESPACE}-config
               key: PYTHONUNBUFFERED
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: {NAMESPACE}-config
+              key: PORT
         resources:
           requests:
             memory: "{MEMORY_REQUEST}"
