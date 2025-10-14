@@ -44,6 +44,11 @@ spec:
             configMapKeyRef:
               name: demo-v58-config
               key: PYTHONUNBUFFERED
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: demo-v58-config
+              key: PORT
         resources:
           requests:
             memory: "64Mi"
