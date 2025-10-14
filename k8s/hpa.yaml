@@ -8,8 +8,8 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: {SERVICE_NAME}
-  minReplicas: 2
-  maxReplicas: 10
+  minReplicas: {MIN_REPLICAS}
+  maxReplicas: {MAX_REPLICAS}
   metrics:
   - type: Resource
     resource:

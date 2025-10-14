@@ -8,9 +8,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/ductri09072004/demo_fiss1_B
+    repoURL: {REPO_URL}
     targetRevision: HEAD
-    path: services/{SERVICE_NAME}/k8s
+    path: k8s
   destination:
     server: https://kubernetes.default.svc
     namespace: {NAMESPACE}
