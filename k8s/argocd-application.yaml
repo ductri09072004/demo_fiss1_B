@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/ductri09072004/demo_fiss1_B
     targetRevision: HEAD
-    path: k8s
+    path: services/{SERVICE_NAME}/k8s
   destination:
     server: https://kubernetes.default.svc
     namespace: {NAMESPACE}
