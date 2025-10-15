@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: services-from-api
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/ductri09072004/demo_fiss1_B
+    targetRevision: HEAD
+    path: cmp
+    plugin:
+      name: mongo-plugin
+      env:
+        - name: API_BASE
+          value: http://dev-portal.dev-portal.svc:3050
+        # Optional: test one service first, then remove to render all
+        # - name: SERVICE_NAME
+        #   value: demo-v71
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
