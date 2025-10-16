@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: services-from-api
+  name: SERVICE_NAME
   namespace: argocd
 spec:
   project: default
@@ -14,14 +14,12 @@ spec:
       env:
         - name: API_BASE
           value: https://auto-tool-production.up.railway.app
-        # Test with demo-v88 first
         - name: SERVICE_NAME
-          value: demo-v88
+          value: SERVICE_NAME
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: SERVICE_NAME
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-
