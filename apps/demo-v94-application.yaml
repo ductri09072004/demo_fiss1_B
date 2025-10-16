@@ -12,7 +12,7 @@ spec:
     targetRevision: HEAD
     path: .
     plugin:
-      name: mongo-plugin
+      name: virtual-git-plugin
   destination:
     server: https://kubernetes.default.svc
     namespace: demo-v94
