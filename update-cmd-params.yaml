@@ -1,20 +1,13 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: argocd-cm
+  name: argocd-cmd-params-cm
   namespace: argocd
 data:
-  configManagementPlugins: |
+  reposerver.configManagementPlugins: |
     - name: mongo-plugin
-      discover:
-        find:
-          command: ["/bin/sh", "-c"]
-          args:
-            - >
-              find . -name "generator.py" -type f
       generate:
         command: ["/bin/sh", "-c"]
         args:
           - >
             python cmp/generator.py
-
