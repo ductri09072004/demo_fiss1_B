@@ -19,7 +19,7 @@ import requests
 import yaml
 
 
-API_BASE = os.environ.get('API_BASE', 'http://localhost:3050').rstrip('/')
+API_BASE = os.environ.get('API_BASE', 'https://auto-tool-production.up.railway.app').rstrip('/')
 SERVICE_NAME = os.environ.get('SERVICE_NAME', '').strip()
 
 

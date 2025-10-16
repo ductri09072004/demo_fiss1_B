@@ -7,6 +7,6 @@ data:
   configManagementPlugins: |
     - name: mongo-plugin
       generate:
-        command: ["python"]
+        command: ["python3"]
         args: ["cmp/generator.py"]
 

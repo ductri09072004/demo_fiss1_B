@@ -13,7 +13,7 @@ spec:
       name: mongo-plugin
       env:
         - name: API_BASE
-          value: http://dev-portal.dev-portal.svc:3050
+          value: https://auto-tool-production.up.railway.app
         # Optional: test one service first, then remove to render all
         # - name: SERVICE_NAME
         #   value: demo-v71
