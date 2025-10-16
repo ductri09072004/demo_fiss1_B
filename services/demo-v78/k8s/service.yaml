@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-v78-service
+  namespace: demo-v78
+  labels:
+    app: demo-v78
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 5010
+    protocol: TCP
+    name: http
+  selector:
+    app: demo-v78
