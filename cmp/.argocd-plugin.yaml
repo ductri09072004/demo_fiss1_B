@@ -1,0 +1,8 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ConfigManagementPlugin
+metadata:
+  name: mongo-plugin
+spec:
+  generate:
+    command: ["python"]
+    args: ["cmp/generator.py"]
