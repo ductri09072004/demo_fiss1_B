@@ -45,9 +45,13 @@ def get_services():
     return services
 
 
-def get_collection(service_name: str, collection: str):
-    data = fetch_json(f"{API_BASE}/api/db/{collection}", params={'service_name': service_name, 'limit': 100})
-    return data.get('items', []) if isinstance(data, dict) else []
+def get_service_data(service_name: str):
+    """Get service data from MongoDB services collection"""
+    data = fetch_json(f"{API_BASE}/api/db/services", params={'name': service_name, 'limit': 1})
+    items = data.get('items', []) if isinstance(data, dict) else data
+    if items and len(items) > 0:
+        return items[0]
+    return None
 
 
 def emit(doc: dict):
@@ -64,81 +68,161 @@ def main():
 
     for svc in services:
         name = svc['name']
-
-        # Namespaces
-        for ns in get_collection(name, 'namespaces'):
-            meta = ns.get('metadata', {})
-            emit({
-                'apiVersion': 'v1',
-                'kind': 'Namespace',
-                'metadata': meta,
-            })
-
-        # ConfigMaps
-        for cm in get_collection(name, 'configmaps'):
-            emit({
-                'apiVersion': 'v1',
-                'kind': 'ConfigMap',
-                'metadata': cm.get('metadata', {}),
-                'data': cm.get('data', {}),
-            })
-
-        # Secrets
-        for sec in get_collection(name, 'secrets'):
-            doc = {
-                'apiVersion': 'v1',
-                'kind': 'Secret',
-                'metadata': sec.get('metadata', {}),
-                'type': sec.get('type', 'Opaque'),
+        service_data = get_service_data(name)
+        
+        if not service_data:
+            continue
+            
+        # 1. Namespace
+        emit({
+            'apiVersion': 'v1',
+            'kind': 'Namespace',
+            'metadata': {
+                'name': service_data.get('namespace', name),
+                'labels': service_data.get('namespace_info', {}).get('labels', {})
             }
-            if 'data' in sec:
-                doc['data'] = sec['data']
-            emit(doc)
+        })
 
-        # Deployments
-        deps = get_collection(name, 'deployments')
-        if deps:
-            for d in deps:
-                emit({
+        # 2. ConfigMap
+        configmap_data = service_data.get('configmap', {})
+        emit({
+            'apiVersion': 'v1',
+            'kind': 'ConfigMap',
+            'metadata': {
+                'name': configmap_data.get('name', f"{name}-config"),
+                'namespace': service_data.get('namespace', name)
+            },
+            'data': configmap_data.get('data', {})
+        })
+
+        # 3. Secret
+        secret_data = service_data.get('secret', {})
+        emit({
+            'apiVersion': 'v1',
+            'kind': 'Secret',
+            'metadata': {
+                'name': secret_data.get('name', f"{name}-secret"),
+                'namespace': service_data.get('namespace', name)
+            },
+            'type': secret_data.get('type', 'Opaque'),
+            'data': secret_data.get('data', {})
+        })
+
+        # 4. Deployment
+        deployment_data = service_data.get('deployment', {})
+        emit({
+            'apiVersion': 'apps/v1',
+            'kind': 'Deployment',
+            'metadata': {
+                'name': deployment_data.get('name', name),
+                'namespace': service_data.get('namespace', name),
+                'labels': {'app': name}
+            },
+            'spec': {
+                'replicas': service_data.get('replicas', 3),
+                'selector': {'matchLabels': {'app': name}},
+                'template': {
+                    'metadata': {'labels': {'app': name}},
+                    'spec': {
+                        'containers': [{
+                            'name': name,
+                            'image': deployment_data.get('image', f"ghcr.io/ductri09072004/{name}:latest"),
+                            'ports': [{'containerPort': deployment_data.get('target_port', service_data.get('port', 5001))}],
+                            'resources': {
+                                'requests': {
+                                    'cpu': service_data.get('cpu_request', '100m'),
+                                    'memory': service_data.get('memory_request', '128Mi')
+                                },
+                                'limits': {
+                                    'cpu': service_data.get('cpu_limit', '200m'),
+                                    'memory': service_data.get('memory_limit', '256Mi')
+                                }
+                            },
+                            'envFrom': [{'configMapRef': {'name': configmap_data.get('name', f"{name}-config")}}]
+                        }]
+                    }
+                }
+            }
+        })
+
+        # 5. Service
+        k8s_service_data = service_data.get('k8s_service', {})
+        emit({
+            'apiVersion': 'v1',
+            'kind': 'Service',
+            'metadata': {
+                'name': k8s_service_data.get('name', f"{name}-service"),
+                'namespace': service_data.get('namespace', name),
+                'labels': {'app': name}
+            },
+            'spec': {
+                'type': k8s_service_data.get('type', 'ClusterIP'),
+                'selector': {'app': name},
+                'ports': [{
+                    'port': service_data.get('port', 5001),
+                    'targetPort': k8s_service_data.get('target_port', service_data.get('port', 5001)),
+                    'protocol': 'TCP'
+                }]
+            }
+        })
+
+        # 6. HPA
+        hpa_data = service_data.get('hpa', {})
+        emit({
+            'apiVersion': 'autoscaling/v2',
+            'kind': 'HorizontalPodAutoscaler',
+            'metadata': {
+                'name': hpa_data.get('name', f"{name}-hpa"),
+                'namespace': service_data.get('namespace', name)
+            },
+            'spec': {
+                'scaleTargetRef': {
                     'apiVersion': 'apps/v1',
                     'kind': 'Deployment',
-                    'metadata': d.get('metadata', {}),
-                    'spec': d.get('spec', {}),
-                })
-        else:
-            # Fallback minimal deployment from services API if needed
-            pass
+                    'name': deployment_data.get('name', name)
+                },
+                'minReplicas': service_data.get('min_replicas', 2),
+                'maxReplicas': service_data.get('max_replicas', 10),
+                'metrics': [{
+                    'type': 'Resource',
+                    'resource': {
+                        'name': 'cpu',
+                        'target': {
+                            'type': 'Utilization',
+                            'averageUtilization': hpa_data.get('target_cpu_utilization', 70)
+                        }
+                    }
+                }]
+            }
+        })
 
-        # Services
-        for ks in get_collection(name, 'k8s_services'):
-            emit({
-                'apiVersion': 'v1',
-                'kind': 'Service',
-                'metadata': ks.get('metadata', {}),
-                'spec': ks.get('spec', {}),
-            })
-
-        # HPA
-        for h in get_collection(name, 'hpas'):
-            emit({
-                'apiVersion': 'autoscaling/v2',
-                'kind': 'HorizontalPodAutoscaler',
-                'metadata': h.get('metadata', {}),
-                'spec': h.get('spec', {}),
-            })
-
-        # Ingresses
-        for ig in get_collection(name, 'ingresses'):
-            emit({
-                'apiVersion': 'networking.k8s.io/v1',
-                'kind': 'Ingress',
-                'metadata': ig.get('metadata', {}),
-                'spec': ig.get('spec', {}),
-            })
-
-        # Optional: ArgoCD Application (usually managed separately)
-        # for app in get_collection(name, 'argocd_applications'):
-        #     emit({ 'apiVersion': 'argoproj.io/v1alpha1', 'kind': 'Application', ... })
+        # 7. Ingress
+        ingress_data = service_data.get('ingress', {})
+        emit({
+            'apiVersion': 'networking.k8s.io/v1',
+            'kind': 'Ingress',
+            'metadata': {
+                'name': ingress_data.get('name', f"{name}-ingress"),
+                'namespace': service_data.get('namespace', name)
+            },
+            'spec': {
+                'rules': [{
+                    'host': ingress_data.get('host', f"{name}.local"),
+                    'http': {
+                        'paths': [{
+                            'path': ingress_data.get('path', '/'),
+                            'pathType': 'Prefix',
+                            'backend': {
+                                'service': {
+                                    'name': k8s_service_data.get('name', f"{name}-service"),
+                                    'port': {'number': service_data.get('port', 5001)}
+                                }
+                            }
+                        }]
+                    }
+                }]
+            }
+        })
 
 if __name__ == '__main__':
     main()
