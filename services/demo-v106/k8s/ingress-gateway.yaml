@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demo-v106-gateway
+  namespace: demo-v106
+  annotations:
+    # regex: /api/demo-v106/api/<rest> -> /api/<rest>
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: "/api/$2"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: gateway.local
+    http:
+      paths:
+      - path: /api/demo-v106/api(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: demo-v106-service
+            port:
+              number: 80
+  - host: localhost
+    http:
+      paths:
+      - path: /api/demo-v106/api(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: demo-v106-service
+            port:
+              number: 80
