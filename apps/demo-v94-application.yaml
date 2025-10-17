@@ -8,9 +8,11 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: http://virtual-git-service.virtual-git.svc.cluster.local:8050
+    repoURL: https://github.com/ductri09072004/demo_fiss1_B
     targetRevision: HEAD
-    path: api/git/demo-v94
+    path: .
+    plugin:
+      name: mongo-plugin
   destination:
     server: https://kubernetes.default.svc
     namespace: demo-v94
