@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demo-v88-config
+  namespace: demo-v88
+data:
+  FLASK_ENV: "production"
+  PYTHONUNBUFFERED: "1"
+  PORT: "5001"

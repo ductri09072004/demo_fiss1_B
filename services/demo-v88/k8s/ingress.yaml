@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demo-v88-ingress
+  namespace: demo-v88
+spec:
+  rules:
+  - host: demo-v88.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: demo-v88-service
+            port:
+              number: 5001

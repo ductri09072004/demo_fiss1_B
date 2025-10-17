@@ -10,9 +10,7 @@ spec:
   source:
     repoURL: https://github.com/ductri09072004/demo_fiss1_B
     targetRevision: HEAD
-    path: .
-    plugin:
-      name: mongo-plugin
+    path: services/demo-v98/k8s
   destination:
     server: https://kubernetes.default.svc
     namespace: demo-v98
