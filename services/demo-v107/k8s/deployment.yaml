@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: demo-v107
-        image: ghcr.io/ductri09072004/demo-v107:1760687581
+        image: ghcr.io/ductri09072004/demo-v107:1760687699
         imagePullPolicy: Always
         ports:
         - containerPort: 5001
