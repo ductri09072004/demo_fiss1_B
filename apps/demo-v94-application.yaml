@@ -8,11 +8,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/ductri09072004/demo_fiss1_B
+    repoURL: http://virtual-git-service.virtual-git.svc.cluster.local:8050
     targetRevision: HEAD
-    path: .
-    plugin:
-      name: virtual-git-plugin
+    path: api/git/demo-v94
   destination:
     server: https://kubernetes.default.svc
     namespace: demo-v94
