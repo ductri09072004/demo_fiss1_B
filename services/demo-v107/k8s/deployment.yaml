@@ -23,12 +23,12 @@ spec:
         version: v1.0.0
       annotations:
         argocd.argoproj.io/sync-wave: "0"
-        timestamp: "1760331233"
+        timestamp: "1760797229"
         deployment.kubernetes.io/revision: "1"
     spec:
       containers:
       - name: demo-v107
-        image: ghcr.io/ductri09072004/demo-v107:1760797165
+        image: ghcr.io/ductri09072004/demo-v107:main-f457e8882c46c55114d029afb577d053f8f28ff5
         imagePullPolicy: Always
         ports:
         - containerPort: 5001
