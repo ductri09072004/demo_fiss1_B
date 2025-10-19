@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demo-v112-config
+  namespace: demo-v112
+data:
+  FLASK_ENV: "production"
+  PYTHONUNBUFFERED: "1"
+  LOG_LEVEL: "INFO"
+  PORT: "5003"
