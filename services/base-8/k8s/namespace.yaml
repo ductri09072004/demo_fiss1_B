@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: base-8
+  labels:
+    name: base-8
+    app: base-8
