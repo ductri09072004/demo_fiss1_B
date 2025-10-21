@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: demo-4.5
-  labels:
-    name: demo-4.5
-    app: demo-4.5
