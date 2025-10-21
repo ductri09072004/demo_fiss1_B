@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: base-4.1-service
+  namespace: base-4.1
+  labels:
+    app: base-4.1
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 5001
+    protocol: TCP
+    name: http
+  selector:
+    app: base-4.1
