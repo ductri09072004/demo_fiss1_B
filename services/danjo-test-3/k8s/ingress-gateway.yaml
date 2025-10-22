@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: danjo-test-3-gateway
+  namespace: danjo-test-3
+  annotations:
+    # regex: /api/danjo-test-3/api/<rest> -> /api/<rest>
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: "/api/$2"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: gateway.local
+    http:
+      paths:
+      - path: /api/danjo-test-3/api(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: danjo-test-3-service
+            port:
+              number: 80
+  - host: localhost
+    http:
+      paths:
+      - path: /api/danjo-test-3/api(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: danjo-test-3-service
+            port:
+              number: 80
