@@ -9,7 +9,7 @@ spec:
   type: ClusterIP
   ports:
   - port: 80
-    targetPort: 7000
+    targetPort: 3050
     protocol: TCP
     name: http
   selector:
