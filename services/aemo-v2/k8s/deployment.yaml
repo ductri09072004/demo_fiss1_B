@@ -28,10 +28,10 @@ spec:
     spec:
       containers:
       - name: aemo-v2
-        image: ghcr.io/ductri09072004/aemo-v2:latest
+        image: ghcr.io/ductri09072004/aemo-v2:1761122338
         imagePullPolicy: Always
         ports:
-        - containerPort: 7000
+        - containerPort: 3050
           name: http
         env:
         - name: FLASK_ENV
@@ -51,21 +51,21 @@ spec:
               key: PORT
         resources:
           requests:
-            memory: "128Mi"
-            cpu: "100m"
+            memory: "64Mi"
+            cpu: "50m"
           limits:
             memory: "256Mi"
-            cpu: "200m"
+            cpu: "100m"
         livenessProbe:
           tcpSocket:
-            port: 7000
+            port: 3050
           initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 5
           failureThreshold: 3
         readinessProbe:
           tcpSocket:
-            port: 7000
+            port: 3050
           initialDelaySeconds: 5
           periodSeconds: 5
           timeoutSeconds: 3
