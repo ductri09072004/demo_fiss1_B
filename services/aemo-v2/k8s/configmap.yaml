@@ -7,4 +7,4 @@ data:
   FLASK_ENV: "production"
   PYTHONUNBUFFERED: "1"
   LOG_LEVEL: "INFO"
-  PORT: "3050"
+  PORT: "7000"
