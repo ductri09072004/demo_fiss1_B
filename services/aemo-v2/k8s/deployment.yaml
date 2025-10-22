@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: aemo-v2
-        image: ghcr.io/ductri09072004/aemo-v2:1761122338
+        image: ghcr.io/ductri09072004/aemo-v2:1761122395
         imagePullPolicy: Always
         ports:
         - containerPort: 3050
@@ -51,11 +51,11 @@ spec:
               key: PORT
         resources:
           requests:
-            memory: "64Mi"
-            cpu: "50m"
+            memory: "128Mi"
+            cpu: "100m"
           limits:
             memory: "256Mi"
-            cpu: "100m"
+            cpu: "200m"
         livenessProbe:
           tcpSocket:
             port: 3050
