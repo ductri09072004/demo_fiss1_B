@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: danjo-test-3
-  labels:
-    name: danjo-test-3
-    app: danjo-test-3
