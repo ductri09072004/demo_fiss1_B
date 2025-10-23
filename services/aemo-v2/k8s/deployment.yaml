@@ -23,12 +23,12 @@ spec:
         version: v1.0.0
       annotations:
         argocd.argoproj.io/sync-wave: "0"
-        timestamp: "1760331233"
+        timestamp: "1761231399"
         deployment.kubernetes.io/revision: "1"
     spec:
       containers:
       - name: aemo-v2
-        image: ghcr.io/ductri09072004/aemo-v2:1761231322
+        image: ghcr.io/blueduck0907/aemo-v2:main-44fd33f4793307b10afc917428d8a3cd73de9f4e
         imagePullPolicy: Always
         ports:
         - containerPort: 7000
