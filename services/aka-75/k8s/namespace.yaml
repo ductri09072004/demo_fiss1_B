@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: aka-75
+  labels:
+    name: aka-75
+    app: aka-75
