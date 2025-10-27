@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: quan-74
-  labels:
-    name: quan-74
-    app: quan-74
