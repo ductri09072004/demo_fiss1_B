@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: aemo-v2u-gateway
+  namespace: aemo-v2u
+  annotations:
+    # regex: /api/aemo-v2u/api/<rest> -> /api/<rest>
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: "/api/$2"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: gateway.local
+    http:
+      paths:
+      - path: /api/aemo-v2u/api(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: aemo-v2u-service
+            port:
+              number: 80
+  - host: localhost
+    http:
+      paths:
+      - path: /api/aemo-v2u/api(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: aemo-v2u-service
+            port:
+              number: 80
