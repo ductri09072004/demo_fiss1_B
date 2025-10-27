@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: aemo-v2d
+  name: aemo-v2
   labels:
-    name: aemo-v2d
-    app: aemo-v2d
+    name: aemo-v2
+    app: aemo-v2
