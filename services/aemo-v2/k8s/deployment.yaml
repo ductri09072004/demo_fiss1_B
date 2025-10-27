@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: aemo-v2
-        image: ghcr.io/ductri09072004/aemo-v2:1761557037
+        image: ghcr.io/ductri09072004/aemo-v2:1761557264
         imagePullPolicy: Always
         ports:
         - containerPort: 7000
