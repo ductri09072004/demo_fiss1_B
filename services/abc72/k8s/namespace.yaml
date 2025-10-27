@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: abc72
-  labels:
-    name: abc72
-    app: abc72
