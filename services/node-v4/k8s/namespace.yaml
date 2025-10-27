@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: node-v4
-  labels:
-    name: node-v4
-    app: node-v4
