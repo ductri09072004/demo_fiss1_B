@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: aemo-v2zz
-  namespace: aemo-v2zz
+  name: aemo-v2
+  namespace: aemo-v2
   labels:
-    app: aemo-v2zz
+    app: aemo-v2
     version: v1.0.0
 spec:
   replicas: 1
@@ -15,11 +15,11 @@ spec:
       maxSurge: 1
   selector:
     matchLabels:
-      app: aemo-v2zz
+      app: aemo-v2
   template:
     metadata:
       labels:
-        app: aemo-v2zz
+        app: aemo-v2
         version: v1.0.0
       annotations:
         argocd.argoproj.io/sync-wave: "0"
@@ -27,8 +27,8 @@ spec:
         deployment.kubernetes.io/revision: "1"
     spec:
       containers:
-      - name: aemo-v2zz
-        image: ghcr.io/ductri09072004/aemo-v2zz:latest
+      - name: aemo-v2
+        image: ghcr.io/ductri09072004/aemo-v2:1761575109
         imagePullPolicy: Always
         ports:
         - containerPort: 7000
@@ -37,17 +37,17 @@ spec:
         - name: FLASK_ENV
           valueFrom:
             configMapKeyRef:
-              name: aemo-v2zz-config
+              name: aemo-v2-config
               key: FLASK_ENV
         - name: PYTHONUNBUFFERED
           valueFrom:
             configMapKeyRef:
-              name: aemo-v2zz-config
+              name: aemo-v2-config
               key: PYTHONUNBUFFERED
         - name: PORT
           valueFrom:
             configMapKeyRef:
-              name: aemo-v2zz-config
+              name: aemo-v2-config
               key: PORT
         resources:
           requests:
