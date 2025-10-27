@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aemo-v2nm
+  namespace: aemo-v2nm
+  labels:
+    app: aemo-v2nm
+    version: v1.0.0
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: aemo-v2nm
+  template:
+    metadata:
+      labels:
+        app: aemo-v2nm
+        version: v1.0.0
+      annotations:
+        argocd.argoproj.io/sync-wave: "0"
+        timestamp: "1760331233"
+        deployment.kubernetes.io/revision: "1"
+    spec:
+      containers:
+      - name: aemo-v2nm
+        image: ghcr.io/ductri09072004/aemo-v2nm:1761580286
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 7000
+          name: http
+        env:
+        - name: FLASK_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: aemo-v2nm-config
+              key: FLASK_ENV
+        - name: PYTHONUNBUFFERED
+          valueFrom:
+            configMapKeyRef:
+              name: aemo-v2nm-config
+              key: PYTHONUNBUFFERED
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: aemo-v2nm-config
+              key: PORT
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        livenessProbe:
+          tcpSocket:
+            port: 7000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          tcpSocket:
+            port: 7000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
