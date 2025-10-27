@@ -1,13 +1,13 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: aemo-v2u-hpa
-  namespace: aemo-v2u
+  name: aemo-v2-hpa
+  namespace: aemo-v2
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: aemo-v2u
+    name: aemo-v2
   minReplicas: 1
   maxReplicas: 10
   metrics:
