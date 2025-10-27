@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aemo-v2q-config
+  namespace: aemo-v2q
+data:
+  FLASK_ENV: "production"
+  PYTHONUNBUFFERED: "1"
+  LOG_LEVEL: "INFO"
+  PORT: "7000"
