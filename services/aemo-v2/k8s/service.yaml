@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: aemo-v2u-service
-  namespace: aemo-v2u
+  name: aemo-v2-service
+  namespace: aemo-v2
   labels:
-    app: aemo-v2u
+    app: aemo-v2
 spec:
   type: ClusterIP
   ports:
@@ -13,4 +13,4 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app: aemo-v2u
+    app: aemo-v2
