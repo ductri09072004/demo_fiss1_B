@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: aemo-v2-config
-  namespace: aemo-v2
+  name: aemo-v2u-config
+  namespace: aemo-v2u
 data:
   FLASK_ENV: "production"
   PYTHONUNBUFFERED: "1"
