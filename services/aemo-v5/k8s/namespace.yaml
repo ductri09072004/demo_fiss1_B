@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: aemo-v5
+  labels:
+    name: aemo-v5
+    app: aemo-v5
