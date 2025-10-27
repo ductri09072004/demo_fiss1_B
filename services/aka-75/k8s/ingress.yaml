@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: aka-75-ingress
+  namespace: aka-75
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: gateway.local
+    http:
+      paths:
+      - path: /api/aka-75
+        pathType: Prefix
+        backend:
+          service:
+            name: aka-75-service
+            port:
+              number: 80
