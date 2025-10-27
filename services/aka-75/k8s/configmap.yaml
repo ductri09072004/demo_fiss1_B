@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aka-75-config
+  namespace: aka-75
+data:
+  FLASK_ENV: "production"
+  PYTHONUNBUFFERED: "1"
+  LOG_LEVEL: "INFO"
+  PORT: "8000"
