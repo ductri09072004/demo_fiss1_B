@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: aemo-v2z
-  labels:
-    name: aemo-v2z
-    app: aemo-v2z
