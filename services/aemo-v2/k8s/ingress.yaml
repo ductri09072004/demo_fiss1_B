@@ -1,8 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: aemo-v2-ingress
-  namespace: aemo-v2
+  name: aemo-v2e-ingress
+  namespace: aemo-v2e
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
@@ -12,10 +12,10 @@ spec:
   - host: gateway.local
     http:
       paths:
-      - path: /api/aemo-v2
+      - path: /api/aemo-v2e
         pathType: Prefix
         backend:
           service:
-            name: aemo-v2-service
+            name: aemo-v2e-service
             port:
               number: 80
