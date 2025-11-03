@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: zemo-v6jk
-  labels:
-    name: zemo-v6jk
-    app: zemo-v6jk
