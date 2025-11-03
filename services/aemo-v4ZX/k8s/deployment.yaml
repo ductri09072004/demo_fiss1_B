@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: aemo-v4ZX
-        image: ghcr.io/ductri09072004/aemo-v4ZX:1762144880
+        image: ghcr.io/ductri09072004/aemo-v4ZX:1762144890
         imagePullPolicy: Always
         ports:
         - containerPort: 5001
