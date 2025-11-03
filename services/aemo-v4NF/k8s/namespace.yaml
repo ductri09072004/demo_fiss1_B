@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: aemo-v4NF
+  labels:
+    name: aemo-v4NF
+    app: aemo-v4NF
