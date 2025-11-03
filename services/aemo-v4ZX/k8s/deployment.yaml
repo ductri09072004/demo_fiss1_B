@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aemo-v4ZX
+  namespace: aemo-v4ZX
+  labels:
+    app: aemo-v4ZX
+    version: v1.0.0
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: aemo-v4ZX
+  template:
+    metadata:
+      labels:
+        app: aemo-v4ZX
+        version: v1.0.0
+      annotations:
+        argocd.argoproj.io/sync-wave: "0"
+        timestamp: "1760331233"
+        deployment.kubernetes.io/revision: "1"
+    spec:
+      containers:
+      - name: aemo-v4ZX
+        image: ghcr.io/ductri09072004/aemo-v4ZX:1762180073
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5001
+          name: http
+        env:
+        - name: FLASK_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: aemo-v4ZX-config
+              key: FLASK_ENV
+        - name: PYTHONUNBUFFERED
+          valueFrom:
+            configMapKeyRef:
+              name: aemo-v4ZX-config
+              key: PYTHONUNBUFFERED
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: aemo-v4ZX-config
+              key: PORT
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        livenessProbe:
+          tcpSocket:
+            port: 5001
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          tcpSocket:
+            port: 5001
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
