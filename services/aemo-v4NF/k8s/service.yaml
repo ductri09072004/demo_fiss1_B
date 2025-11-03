@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: aemo-v4NF-service
+  namespace: aemo-v4NF
+  labels:
+    app: aemo-v4NF
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 5001
+    protocol: TCP
+    name: http
+  selector:
+    app: aemo-v4NF
