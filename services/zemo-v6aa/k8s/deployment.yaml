@@ -23,12 +23,12 @@ spec:
         version: v1.0.0
       annotations:
         argocd.argoproj.io/sync-wave: "0"
-        timestamp: "1760331233"
+        timestamp: "1762184972"
         deployment.kubernetes.io/revision: "1"
     spec:
       containers:
       - name: zemo-v6aa
-        image: ghcr.io/ductri09072004/zemo-v6aa:latest
+        image: ghcr.io/blueduck0907/aemo-v6:main-5eb5a314eaffb6d88e73fc7bb0e52b9980738783
         imagePullPolicy: Always
         ports:
         - containerPort: 5001
