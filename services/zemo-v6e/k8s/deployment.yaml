@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: zemo-v6e
-        image: ghcr.io/ductri09072004/zemo-v6e:1762184578
+        image: ghcr.io/ductri09072004/zemo-v6e:1762184675
         imagePullPolicy: Always
         ports:
         - containerPort: 5001
